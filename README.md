@@ -5,7 +5,7 @@
 Ein DIY-Eingabegerät, das aus einer einfachen Pappschachtel, Acrylglas und Papier besteht.  
 Berührungen und Taps durch Finger (oder noch besser ein schwarzer dicker Stift o.Ä.) als Stylus) werden erkannt, an den Rechner übertragen – und optional durch eine nachgeschaltete Handschrift-Erkennung ausgewertet. 
 
-Das Programm 'fitts_law.py' kann per DIPPID mit dem touch recognizer gesteuert werden, resultate werden in einer .csv gespeichert. Zum starten davon kann das Command 'python fitts_law.py 10 40 200 0' genutzt werden.
+Zum Testen kann das Programm `fitts_law.py` per DIPPID mit dem touch recognizer gesteuert werden, resultate werden in einer .csv gespeichert. Zum starten davon kann das Command `python fitts_law.py 10 40 200 0` genutzt werden.
 
 Genauere Informationen zum Aufbau, Design-Prozess und Anwendungshinweise finden sich in `documentation.md` 
 
@@ -24,7 +24,7 @@ Genauere Informationen zum Aufbau, Design-Prozess und Anwendungshinweise finden 
 
 Aufbauend auf `touch_input.py` gibt es auch `touch_input_with_recognizer`. Dieses Programm erlaubt das Malen von Shapes / Buchstaben und benutzt den 1$-Recongizer Algorithmus (`recongizer.py` übernommen von ITT-Assignment-06) um diese Robust zu erkennen. Es poppt zusätzlich als Guide ein Fenster mit allen verfügbaren Zeichen auf, welche als .xml in letter_templates gespeichert sind.
 
-Inputs erlauben dann via Pynput das schreiben auf dem PC. Die verfügbaren Symbole könnten auch leicht beliebig erweitert werden um z. B. Media Controls einzubauen. Mehr details über den Handwriting Recgonizer stehen zusätzlich in `documentation.md`
+Inputs erlauben dann via Pynput das schreiben auf dem PC. Die verfügbaren Symbole könnten auch leicht beliebig erweitert werden um z. B. Media Controls einzubauen. Mehr Details über den Handwriting Recgonizer stehen zusätzlich in `documentation.md`
 
 ---
 
@@ -53,6 +53,6 @@ Zunächst Git-Repo clonen/runterladen, dann:
 ## Starten
 
 1. Für Fitts Law Test: cmd im Ordner: `python touch_input.py`
-2. Für Letter-Recognition:
+2. Für Letter-Recognition: `python touch_input_with_recognizer.py`
 
 
