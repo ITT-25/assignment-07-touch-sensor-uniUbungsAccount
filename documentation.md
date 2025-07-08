@@ -2,32 +2,35 @@
 
 | Bild | Beschreibung |
 | :--- | :----------- |
-| ![Fertiger Touch-Sensor Box](TouchSensor1.png) | Außengehäuse: Quadratische Pappschachtel mit Dimensionen 28x28x33cm mit Acryl-Deckfläche und dickem Papier als Diffusor. Die Ecken wurden nach oben geklappt und mit Tesa verstärk, um die Distanz zwischen Kamera und Touch-Fläche zu erhöhen. |
-| ![Innenleben](TouchSensor2.png) | Innenansicht: Eigene USB-Webcam (ersetzt ursprünglich geplante Intel RealSense-Kamera da diese nicht funktionierte). Die Kamera benötigt einen USB 2.0-Anschluss und bietet 60FPS 1080P Video. Das Kabel wird durch ein loch aus der Unterseite der Box geführt. |
+| ![Fertige Touch-Sensor-Box](TouchSensor1.png) | Außengehäuse: Quadratische Pappschachtel mit den Dimensionen 28×28×33 cm, Acryl-Deckfläche und dickem Papier als Diffusor. Die Ecken wurden nach oben geklappt und mit Tesa verstärkt, um die Distanz zwischen Kamera und Touch-Fläche zu erhöhen. |
+| ![Innenleben](TouchSensor2.png) | Innenansicht: Eigene USB-Webcam (ersetzt die ursprünglich geplante Intel RealSense-Kamera, da diese nicht funktionierte). Die Kamera benötigt einen USB-2.0-Anschluss und bietet ein 1080p-Video mit 60 FPS. Das Kabel wird durch ein Loch an der Unterseite der Box geführt. |
 
-# Design-Entscheidungen für Touch Erkennung
+# Design-Entscheidungen für die Touch-Erkennung
 
+Für eine bessere Wahrnehmung des Fingers werden verschiedene Tricks angewendet:
 
-Für bessere Wahrnehmung des Fingers werden verschiedene Tricks benutzt:
--   Zunächst kalibiert der Touch Input sich beim Programmstart für 3s selbst, um sich an die Lichtverhältnisse anzupassen. 
--   Das Bild von der Kamera um 10% zugeschnitten, um etwaige Ränder der Box zu entfernen.
--   Es wird zwischen frames gesmoothed um flickern zu bekämpfen
--   Um Taps zu erkennen wird nach kurzen Erkennungen bis 0.35s gesucht, funktioniert zuverlässig
--   Um zu kleine oder große Flächen nicht zu erkennen, werden minimum und maximum Kontourgrößen definiert
+- Beim Programmstart kalibriert sich der Touch Input für 3 Sekunden selbst, um sich an die Lichtverhältnisse anzupassen.
+- Das Bild der Kamera wird um 10 % zugeschnitten, um eventuelle Ränder der Box zu entfernen.
+- Zwischen den Frames wird geglättet, um Flackern zu vermeiden.
+- Um Taps zu erkennen, wird nach kurzen Berührungen bis maximal 0,35 s gesucht; dies funktioniert zuverlässig.
+- Um zu kleine oder zu große Flächen nicht fälschlich zu erkennen, werden minimale und maximale Konturgrößen definiert.
 
-Zum Testen kann fitts_law.py benutzt werden. Es klappt zuverlässig, mit dem Touch-Input die roten Kreise anzuklicken, allerdings ist ist es relativ langsam verglichen mit einer Maus, wie man der .csv Datei danach entnehmen kann.
+Zum Testen kann `fitts_law.py` verwendet werden. Es funktioniert zuverlässig, die roten Kreise mit dem Touch-Input anzuklicken; allerdings ist dies im Vergleich zur Maus relativ langsam, wie man der erzeugten `.csv`-Datei entnehmen kann.
 
 # Design-Entscheidungen für die Buchstaben-Erkennung
-Um die Handgeschriebenen Buchstaben zu erkennen wurde der 1$-Recognizer-Ansatz gewählt, da er simpel ohne und großes Datenset implementierbar ist und sehr gute Ergebnisse erzielen kann. Zudem ist er schnell und effizient, was z. B. dem Touch-Input Device erlauben könnte, mit einem Raspberry Pie als tragbares stand-alone-Gerät zu existieren.
 
-Der 1$ Recognizer wurde auf Threshhold 75% accuracy gesetzt um unklare Inputs zu filtern, und erlaubt damit meist zuverlässiges schreiben. Zustätzlich wäre es sehr schnell möglich, die 26 Buchstaben des Alphabets durch weitere Symbole zu erweitern, oder es Nutzern zu erlauben, selbst Buchstaben-Shapes zu definieren, so wie sie schreiben wollen. Auch kleingeschriebene Buchstaben könnten unterstützt werden. Damit Nutzer die erwartete Zeichen-Form sehen können, poppt beim Programmstart ein 2. Fenster mit Guide auf. Dieses ist adaptiv und passt sich an die Menge der .xml-Shape-Dateien im Ordner an.
+Um handgeschriebene Buchstaben zu erkennen, wurde der 1$-Recognizer-Ansatz gewählt, da er simpel ohne großes Datenset implementierbar ist und dennoch sehr gute Ergebnisse erzielen kann. Zudem ist er schnell und effizient, was es z. B. ermöglichen würde, das Touch-Input-Device als tragbares Standalone-Gerät mit einem Raspberry Pi zu betreiben.
+
+Der 1$ Recognizer wurde auf einen Threshold von 75 % Genauigkeit gesetzt, um unklare Eingaben zu filtern, und ermöglicht damit meist zuverlässiges Schreiben. Zusätzlich wäre es einfach möglich, die 26 Buchstaben des Alphabets durch weitere Symbole zu erweitern oder Nutzern zu erlauben, eigene Buchstaben-Shapes zu definieren. Auch Kleinbuchstaben könnten unterstützt werden. Damit Nutzer die erwartete Zeichenform sehen können, öffnet sich beim Programmstart ein zweites Fenster mit einem Guide. Dieses ist adaptiv und passt sich an die Menge der `.xml`-Shape-Dateien im Ordner an.
 
 # Anwendungshinweise
 
-Gute Lichtverhältnisse sind vorteilhaft aber nicht zwingend nötig, da der Touch Input sich selbst kalibiert. Man kann mit dem Finger steuern, allerdings kann der Schatten der Hand etwas stören, weswegen schwarze lange Objekte als Touch-Device in der Regel besser funktionieren. 
+Gute Lichtverhältnisse sind vorteilhaft, aber nicht zwingend nötig, da sich der Touch Input selbst kalibriert. Man kann mit dem Finger steuern; allerdings könnte der Schatten der Hand etwas stören, weswegen längliche schwarze Objekte als Eingabegerät in der Regel besser funktionieren.
 
-Um die 2 Touch-Programme zu beenden kann `esc` gedrückt werden.
+Die Kamera muss mittig in der Box sitzen. Die Ränder werden zwar programmatisch abgeschnitten, dennoch darf kein Rand der Box im Kamerabild sichtbar sein.
+
+Um die beiden Touch-Programme zu beenden, kann die `Esc`-Taste gedrückt werden.
 
 # Fazit
 
-Der Touch-Input fühlt sich irgendwie magisch an und ist eine low-cost solution mit coolem Potential. Für die meisten Anwendungszwecke dürfte allerdings ein klassischer Touchscreen sinnvoller sein.
+Der Touch Input fühlt sich irgendwie magisch an und ist eine low-cost Lösung mit coolem Potenzial. Für die meisten Anwendungszwecke dürfte allerdings ein klassischer Touchscreen sinnvoller sein.
