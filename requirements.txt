@@ -1,0 +1,5 @@
+pyglet
+pandas
+numpy
+opencv-python
+pynput
